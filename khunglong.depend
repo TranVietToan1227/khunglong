@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1743435924 source:d:\khunglong\graphics.cpp
+	<iostream>
+	<SDL.h>
+	<SDL2/SDL_image.h>
+	"defs.h"
+	"graphics.h"
+
+1742918572 d:\khunglong\desf.h
+
+1743435251 d:\khunglong\graphics.h
+	<SDL.h>
+	<SDL2/SDL_image.h>
+	"defs.h"
+
+1743479249 source:d:\khunglong\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL2/SDL_image.h>
+	"graphics.h"
+	"defs.h"
+
+1743428279 d:\khunglong\defs.h
+
+1743435924 source:d:\khunglong\khunglong\graphics.cpp
+	<iostream>
+	<SDL.h>
+	<SDL2/SDL_image.h>
+	"defs.h"
+	"graphics.h"
+
+1743428279 d:\khunglong\khunglong\defs.h
+
+1743435251 d:\khunglong\khunglong\graphics.h
+	<SDL.h>
+	<SDL2/SDL_image.h>
+	"defs.h"
+
