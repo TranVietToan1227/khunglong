@@ -3,7 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include "defs.h"
 #include "graphics.h"
-
+#include "game.h"
+#include "obstacle.h"
 
 void Graphics::init(){
     SDL_INIT_EVERYTHING;
@@ -15,10 +16,8 @@ SDL_Texture* Graphics::loadTexture(const char* filename){
    SDL_Texture* texture=IMG_LoadTexture(renderer,filename);
    return texture;
 }
-void Graphics::prepareScene(SDL_Texture* filename1,SDL_Texture* filename2,SDL_Rect* dinoRect){
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer,filename1,nullptr,nullptr);
-    SDL_RenderCopy(renderer,filename2,nullptr,dinoRect);
+void Graphics::prepareScene(SDL_Texture* filename,SDL_Rect* dinoRect){
+    SDL_RenderCopy(renderer,filename,nullptr,dinoRect);
 }
 void Graphics::renderTexture(SDL_Texture* texture,int x, int y){
     SDL_Rect dest;

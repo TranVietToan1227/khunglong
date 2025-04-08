@@ -22,17 +22,30 @@
 
 1743428279 d:\khunglong\defs.h
 
-1743435924 source:d:\khunglong\khunglong\graphics.cpp
+1744038963 source:d:\khunglong\khunglong\graphics.cpp
 	<iostream>
 	<SDL.h>
 	<SDL2/SDL_image.h>
 	"defs.h"
 	"graphics.h"
+	"game.h"
 
-1743428279 d:\khunglong\khunglong\defs.h
+1744119117 d:\khunglong\khunglong\defs.h
 
-1743435251 d:\khunglong\khunglong\graphics.h
+1744042965 d:\khunglong\khunglong\graphics.h
 	<SDL.h>
 	<SDL2/SDL_image.h>
 	"defs.h"
+
+1744103457 source:d:\khunglong\khunglong\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL2/SDL_image.h>
+	"graphics.h"
+	"defs.h"
+	"game.h"
+
+1744119103 d:\khunglong\khunglong\game.h
+	"defs.h"
+	"graphics.h"
 
