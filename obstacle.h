@@ -1,26 +1,27 @@
-#ifndef OBSTACLE_H
-#define OBSTACLE_H
-#include "graphics.h"
-#include "game.h"
+#ifndef _OBSTACLE_H
+#define _OBSTACLE_H
+#include<SDL.h>
+#include<SDL2/SDL_image.h>
 #include "defs.h"
-#define VATCAN1 "suongrong1"
-#define VATCAN2 "suongrong2"
-#define VATCAN3 "suongrong3"
+#include "game.h"
+#include <bits/stdc++.h>
+
+#define VATCAN1 "suongrong1.png"
+#define VATCAN2 "suongrong2.png"
+#define VATCAN3 "suongrong3.png"
+
+ struct Graphics;
+
 struct Obstacle {
     SDL_Texture* texture;
     SDL_Rect rect;
 
-    vector<Obstacle> obstacle;
+    vector<Obstacle> obstacles;
     Uint32 lastSpawnTime = 0;
     Uint32 spawnInterval = 2000;
-
-   SDL_Texture* cactusTexture1 = IMG_LoadTexture(renderer,VATCAN1);
-    SDL_Texture* cactusTexture2 = IMG_LoadTexture(renderer,VATCAN2);
-    SDL_Texture* cactusTexture3 = IMG_LoadTexture(renderer,VATCAN3);
-
-    void spawnObstacle(){
-
-    }
+    void spawnObstacle(Graphics& graphics);//sinh vật cản mới
+    void updateObstacles(Graphics& graphics);//cập nhật vị trí, xóa ảnh cũ, spawn mới
+    void renderObstacles(Graphics& graphics);
 };
 
 

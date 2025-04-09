@@ -1,5 +1,7 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef _GAME_H
+#define _GAME_H
+#include<SDL.h>
+#include<SDL2/SDL_image.h>
 #include "defs.h"
 #include "graphics.h"
 #include "obstacle.h"
@@ -54,8 +56,8 @@ struct dc_khunglong{
     filled_rect.h = 70;
     background.setTexture(graphics.loadTexture(BACKGROUND_IMG));
     background.scoll(5);
-      graphics.render(background);
-    SDL_RenderCopy(graphics.renderer,graphics.loadTexture(anhnhanvat),nullptr,&filled_rect);
+    graphics.render(background);
+    SDL_RenderCopy(graphics.renderer,graphics.loadTexture(ANH_NHAN_VAT),nullptr,&filled_rect);
     }
 
     bool gameOver(const dc_khunglong mouse){

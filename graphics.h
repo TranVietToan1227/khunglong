@@ -4,8 +4,7 @@
 #include <SDL.h>
 #include <SDL2/SDL_image.h>
 #include "defs.h"
-#include "obstacle.h"
-#include "obstacle.h"
+#include "game.h"
 struct scollingBackground{
   SDL_Texture* texture;
   int scollingOffset=0;
