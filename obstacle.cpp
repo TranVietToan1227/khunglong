@@ -1,25 +1,17 @@
-#include <iostream>
-#include <SDL.h>
-#include <SDL2/SDL_image.h>
-#include "defs.h"
-#include "graphics.h"
-#include "game.h"
 #include "obstacle.h"
+
+std::vector<Obstacle> obstacles;
 
 void Obstacle::spawnObstacle(Graphics& graphics){//sinh vật cản mới
         Obstacle obs;
-          int type=rand()%3;
-          if(type==0){
-            obs.texture=IMG_LoadTexture(graphics.renderer,VATCAN1);
-            obs.rect={450,450,70,70};
-          }
-          else if(type==1){
-            obs.texture=IMG_LoadTexture(graphics.renderer,VATCAN2);
-            obs.rect={450,450,70,70};
-          }
-          else if(type==2){
-            obs.texture=IMG_LoadTexture(graphics.renderer,VATCAN3);
-            obs.rect={450,450,70,70};
+        Uint32 currentTime=SDL_GetTicks();
+          if(currentTime>lastSpawnTime+spawnInterval){
+            int type=rand()%3;
+            const char* textures[]={VATCAN1,VATCAN2,VATCAN3};
+            obs.texture=IMG_LoadTexture(graphics.renderer,textures[type]);
+            obs.rect={730,450,70,70};
+            lastSpawnTime=currentTime;
+            spawnInterval=2000+rand()%1000;
           }
           obstacles.push_back(obs);
     }
@@ -28,14 +20,17 @@ void Obstacle::spawnObstacle(Graphics& graphics){//sinh vật cản mới
             obs.rect.x-=5;
         }
 
-        obstacles.erase(remove_if(obstacles.begin(),obstacles.end(),[](Obstacle& o){return o.rect.x+o.rect.w<0}),obstacles.end());
-
+        obstacles.erase(remove_if(obstacles.begin(),obstacles.end(),[](Obstacle& o){return o.rect.x+o.rect.w<0;}),obstacles.end());
+    }
+    bool Obstacle::ktspam(Graphics& graphics){
         Uint32 currentTime = SDL_GetTicks();
         if(currentTime>lastSpawnTime+spawnInterval){
             spawnObstacle(graphics);
             lastSpawnTime=currentTime;
-            spawnInterval=1500+rand()%1000;
+            spawnInterval=2000+rand()%1000;
+            return true;
         }
+        return false;
     }
     void Obstacle::renderObstacles(Graphics& graphics) {
     for (const auto& obs : obstacles) {

@@ -1,11 +1,8 @@
-#include <bits/stdc++.h>
-
-#include <SDL.h>
-#include <SDL2/SDL_image.h>
 #include "graphics.h"
 #include "defs.h"
 #include "game.h"
 #include "obstacle.h"
+
 using namespace std;
 
 void waitUntilKeyPressed()
@@ -30,6 +27,8 @@ int main(int argc, char *argv[])
     dc_khunglong mouse;
     mouse.x=graphics.dinoRect.x;
     mouse.y=graphics.dinoRect.y;
+
+    Obstacle obstacle;
     bool quit = false;
     SDL_Event e;
     while( !quit&&!mouse.gameOver(mouse) ) {
@@ -38,15 +37,21 @@ int main(int argc, char *argv[])
         }
       background.scoll(5);
       graphics.render(background);
-      graphics.prepareScene(graphics.loadTexture(anhnhanvat),&graphics.dinoRect);
+      graphics.prepareScene(graphics.loadTexture(ANH_NHAN_VAT),&graphics.dinoRect);
 
       const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
       if (currentKeyStates[SDL_SCANCODE_W]||currentKeyStates[SDL_SCANCODE_UP]||currentKeyStates[SDL_SCANCODE_SPACE]) mouse.dc_len();
       SDL_RenderClear(graphics.renderer);
       mouse.render(mouse,graphics,background);
       mouse.move();
+
+
+      obstacle.spawnObstacle(graphics);
+      obstacle.updateObstacles(graphics);
+      obstacle.renderObstacles(graphics);
+
       graphics.presentScene();
-        SDL_Delay(25);
+        SDL_Delay(20);
     }
 
 

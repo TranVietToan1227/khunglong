@@ -1,13 +1,13 @@
 #ifndef _GAME_H
 #define _GAME_H
-#include<SDL.h>
-#include<SDL2/SDL_image.h>
+
 #include "defs.h"
 #include "graphics.h"
-#include "obstacle.h"
-const int INITIAL_SPEED= -17;
-const int trong_luc=2;
-const int ground=450;
+
+
+static const int INITIAL_SPEED= -17;
+static int trong_luc=2;
+static const int ground=450;
 
 
 struct dc_khunglong{
