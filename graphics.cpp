@@ -8,7 +8,10 @@ void Graphics::init(){
 }
 
 SDL_Texture* Graphics::loadTexture(const char* filename) {
-    Graphics::texture = IMG_LoadTexture(Graphics::renderer,filename);
+    SDL_Surface* tempSurface=IMG_Load(filename);
+    SDL_SetColorKey(tempSurface,SDL_TRUE,SDL_MapRGB(tempSurface->format,255,255,255));
+    SDL_Texture* texture=SDL_CreateTextureFromSurface(renderer,tempSurface);
+    SDL_FreeSurface(tempSurface);
     return texture;
 }
 
@@ -29,10 +32,10 @@ void Graphics::render(const scollingBackground& bgr){
 void Graphics::presentScene(){
     SDL_RenderPresent(renderer);
 }
-void Graphics::quit(){
-    IMG_Quit();
+    void Graphics::quit(){
+        IMG_Quit();
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }

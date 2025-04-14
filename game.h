@@ -5,8 +5,8 @@
 #include "graphics.h"
 
 
-static const int INITIAL_SPEED= -17;
-static int trong_luc=2;
+static const int INITIAL_SPEED= -32;
+static const int trong_luc=2;
 static const int ground=450;
 
 

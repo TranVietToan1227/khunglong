@@ -25,8 +25,8 @@ struct Obstacle {
     Uint32 spawnInterval = 5000;
     void spawnObstacle(Graphics& graphics);//sinh vật cản mới
     void updateObstacles(Graphics& graphics);//cập nhật vị trí, xóa ảnh cũ
-    bool ktspam(Graphics& graphics);
     void renderObstacles(Graphics& graphics);// vẽ vật cản
+    void xlvc(Graphics& graphics);
 };
 
 extern std::vector<Obstacle> obstacles;

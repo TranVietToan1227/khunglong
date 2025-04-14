@@ -42,6 +42,8 @@ int main(int argc, char *argv[])
       const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
       if (currentKeyStates[SDL_SCANCODE_W]||currentKeyStates[SDL_SCANCODE_UP]||currentKeyStates[SDL_SCANCODE_SPACE]) mouse.dc_len();
       SDL_RenderClear(graphics.renderer);
+      if(graphics.loadTexture(ANH_NHAN_VAT)!=nullptr) SDL_DestroyTexture(graphics.loadTexture(ANH_NHAN_VAT));
+      if(graphics.loadTexture(BACKGROUND_IMG)!=nullptr) SDL_DestroyTexture(graphics.loadTexture(BACKGROUND_IMG));
       mouse.render(mouse,graphics,background);
       mouse.move();
 
@@ -49,12 +51,14 @@ int main(int argc, char *argv[])
       obstacle.spawnObstacle(graphics);
       obstacle.updateObstacles(graphics);
       obstacle.renderObstacles(graphics);
+      obstacle.xlvc(graphics);
 
       graphics.presentScene();
-        SDL_Delay(20);
+      SDL_RenderClear(graphics.renderer);
+        SDL_Delay(25);
     }
-
-
+    SDL_DestroyTexture(graphics.loadTexture(ANH_NHAN_VAT));
+    SDL_DestroyTexture(graphics.loadTexture(BACKGROUND_IMG));
     graphics.quit();
     return 0;
 }

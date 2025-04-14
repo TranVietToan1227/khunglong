@@ -11,29 +11,36 @@ void Obstacle::spawnObstacle(Graphics& graphics){//sinh vật cản mới
             obs.texture=IMG_LoadTexture(graphics.renderer,textures[type]);
             obs.rect={730,450,70,70};
             lastSpawnTime=currentTime;
-            spawnInterval=2000+rand()%1000;
+            spawnInterval=2500+rand()%1000;
           }
           obstacles.push_back(obs);
     }
     void Obstacle::updateObstacles(Graphics& graphics){//cập nhật vị trí, xóa ảnh cũ, spawn mới
         for(auto& obs:obstacles){
-            obs.rect.x-=5;
+            obs.rect.x-=7;
         }
 
-        obstacles.erase(remove_if(obstacles.begin(),obstacles.end(),[](Obstacle& o){return o.rect.x+o.rect.w<0;}),obstacles.end());
-    }
-    bool Obstacle::ktspam(Graphics& graphics){
-        Uint32 currentTime = SDL_GetTicks();
-        if(currentTime>lastSpawnTime+spawnInterval){
-            spawnObstacle(graphics);
-            lastSpawnTime=currentTime;
-            spawnInterval=2000+rand()%1000;
-            return true;
-        }
-        return false;
+        obstacles.erase(remove_if(obstacles.begin(),obstacles.end(),[](Obstacle& o){
+                                  if( o.rect.x+o.rect.w<0){
+                                    if(o.texture!=nullptr){
+                                    SDL_DestroyTexture(o.texture);
+                                    o.texture=nullptr;
+                                  }
+                                  return true;
+                            }
+                            return false;
+                    }),obstacles.end());
     }
     void Obstacle::renderObstacles(Graphics& graphics) {
     for (const auto& obs : obstacles) {
         SDL_RenderCopy(graphics.renderer, obs.texture, nullptr, &obs.rect);
     }
   }
+    void Obstacle:: xlvc(Graphics& graphics){
+        for(const auto& obs: obstacles){
+            if(SDL_HasIntersection(&graphics.dinoRect,&obs.rect)){
+                exit(0);
+               }
+        }
+
+    }
