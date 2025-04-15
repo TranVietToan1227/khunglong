@@ -18,4 +18,27 @@ static const int distancebgr1=5;
 static const int distancebgr2=8;
 static const int distanceobs1=4;
 static const int distanceobs2=6;
+
+static const char*  BIRD_SPRITE_FILE = "83127-sprite-area-line-animated-bird-film.png";
+const int BIRD_CLIPS[][4] = {
+    {0, 0, 182, 168},
+    {181, 0, 182, 168},
+    {364, 0, 182, 168},
+    {547, 0, 182, 168},
+    {728, 0, 182, 168},
+
+    {0, 170, 182, 168},
+    {181, 170, 182, 168},
+    {364, 170, 182, 168},
+    {547, 170, 182, 168},
+    {728, 170, 182, 168},
+
+    {0, 340, 182, 168},
+    {181, 340, 182, 168},
+    {364, 340, 182, 168},
+    {547, 340, 182, 168},
+};
+const int BIRD_FRAMES = sizeof(BIRD_CLIPS)/sizeof(int)/4;
+
+
 #endif

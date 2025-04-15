@@ -1,5 +1,5 @@
 #include "graphics.h"
-
+  std:: vector<SDL_Rect> clips;
 void Graphics::init(){
     SDL_INIT_EVERYTHING;
     window=SDL_CreateWindow(WINDOW_TITLE,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
@@ -39,3 +39,20 @@ void Graphics::presentScene(){
         SDL_DestroyWindow(window);
         SDL_Quit();
     }
+
+    void Sprite::init(SDL_Texture* _texture, int frames, const int _clips [][4]) {
+        texture = _texture;
+        SDL_Rect clip;
+        for (int i = 0; i < frames; i++) {
+            clip.x = _clips[i][0];
+            clip.y = _clips[i][1];
+            clip.w = _clips[i][2];
+            clip.h = _clips[i][3];
+            clips.push_back(clip);
+        }
+    }
+    void Sprite::tick() {
+        currentFrame = (currentFrame + 1) % clips.size();
+    }
+
+

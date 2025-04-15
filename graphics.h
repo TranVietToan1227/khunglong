@@ -2,6 +2,7 @@
 #define _GRAPHICS__H
 
 #include <algorithm>
+#include <vector>
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -43,11 +44,33 @@ void renderTexture(SDL_Texture* texture, int x, int y);
 
 void render(const scollingBackground& bgr) ;
 
+
 void presentScene();
 
 void quit();
 
 
 };
+extern std::vector<SDL_Rect> clips;
+struct Sprite {
+    SDL_Texture* texture;
+    int currentFrame = 0;
+
+
+    void init(SDL_Texture* _texture, int frames, const int _clips [][4]);
+
+    void tick();
+
+    const SDL_Rect* getCurrentClip() const {
+        return &(clips[currentFrame]);
+    }
+    void renderSprite(int x, int y,Graphics& graphics) {
+        const SDL_Rect* clip = getCurrentClip();
+        SDL_Rect renderQuad = {x, y, getCurrentClip()->w, getCurrentClip()->h};
+        SDL_RenderCopy(graphics.renderer,texture, clip, &renderQuad);
+    }
+
+};
+
 
 #endif // _GRAPHICS__H

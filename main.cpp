@@ -3,7 +3,6 @@
 #include "game.h"
 #include "obstacle.h"
 
-using namespace std;
 
 
 int main(int argc, char *argv[])
@@ -21,6 +20,9 @@ int main(int argc, char *argv[])
     mouse.x=graphics.dinoRect.x;
     mouse.y=graphics.dinoRect.y;
 
+    Sprite bird;
+    SDL_Texture* birdTexture = graphics.loadTexture(BIRD_SPRITE_FILE);
+    bird.init(birdTexture, BIRD_FRAMES, BIRD_CLIPS);
 
     bool quit = false;
     SDL_Event e;
@@ -50,11 +52,16 @@ int main(int argc, char *argv[])
 
       xlvc(mouse);
 
+      bird.tick();
+
+      bird.renderSprite(150, 100 ,graphics);
       SDL_RenderClear(graphics.renderer);
       graphics.render(background);
       mouse.render(mouse,graphics,background);
       renderObstacles(graphics);
       graphics.presentScene();
+
+
 
       frametime=SDL_GetTicks()-frameStart;
       if(frameDelay>frametime){
