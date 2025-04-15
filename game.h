@@ -5,58 +5,54 @@
 #include "graphics.h"
 
 
-static const int INITIAL_SPEED= -32;
-static const int trong_luc=2;
+static const int INITIAL_SPEED= -20;
+static const int trong_luc=1;
 static const int ground=450;
-
+static const int JUM_HEIGHT=100;
+static const int JUM_SPEED=8;
 
 struct dc_khunglong{
     int x;
     int y;
     int speed=INITIAL_SPEED;
-    int dx=0;
-    int dy=0;
-    bool isJumping=false;
+    bool isJumping=false;// trạng thái nhảy
+    bool isFalling=false;// trạng thái rơi
+    bool isGrounded=true;// trạng thái có tiếp xúc với mặt đất không
+
     void move(){
         if(isJumping){
-        x+=dx;
         y+=speed;
         speed+=trong_luc;
-        if(y>=ground){
-            y=ground;
-            speed=0;
+        if(y<ground-JUM_HEIGHT){
             isJumping=false;
+            isFalling=true;
         }
       }
+      else if(isFalling){
+        y+=speed;
+        if(y>=ground){
+            y=ground;
+            isFalling=false;
+            isGrounded=true;
+        }
+        speed+=trong_luc;
+      }
+
     }
     void dc_len(){
-       if(!isJumping){
+       if(!isJumping&&!isFalling&& y==ground){
         isJumping=true;
+        isGrounded=false;
         speed=INITIAL_SPEED;
        }
-    }
-    void dc_xuong(){
-        dx=0;
-        dy+=speed;
-    }
-    void dc_phai(){
-        dx+=speed;
-        dy=0;
-    }
-    void dc_trai(){
-        dx=-speed;
-        dy=0;
     }
 
     void render(const dc_khunglong& mouse,  Graphics& graphics,scollingBackground& background) {
     SDL_Rect filled_rect;
     filled_rect.x = mouse.x;
     filled_rect.y = mouse.y;
-    filled_rect.w = 70;
-    filled_rect.h = 70;
-    background.setTexture(graphics.loadTexture(BACKGROUND_IMG));
-    background.scoll(5);
-    graphics.render(background);
+    filled_rect.w = PLAYER_WIDTH;
+    filled_rect.h = PLAYER_HEIGHT;
     SDL_RenderCopy(graphics.renderer,graphics.loadTexture(ANH_NHAN_VAT),nullptr,&filled_rect);
     }
 

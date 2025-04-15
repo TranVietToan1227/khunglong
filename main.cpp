@@ -5,60 +5,66 @@
 
 using namespace std;
 
-void waitUntilKeyPressed()
-{
-    SDL_Event e;
-    while (true) {
-        if ( SDL_PollEvent(&e) != 0 &&
-             (e.type == SDL_KEYDOWN || e.type == SDL_QUIT) )
-            return;
-        SDL_Delay(200);
-    }
-}
 
 int main(int argc, char *argv[])
 {
     Graphics graphics;
     graphics.init();
 
+    SDL_Texture* backgroundtex=graphics.loadTexture(BACKGROUND_IMG);
+    SDL_Texture* dinoTex=graphics.loadTexture(ANH_NHAN_VAT);
+
     scollingBackground background;
-    background.setTexture(graphics.loadTexture(BACKGROUND_IMG));
+    background.setTexture(backgroundtex);
 
     dc_khunglong mouse;
     mouse.x=graphics.dinoRect.x;
     mouse.y=graphics.dinoRect.y;
 
-    Obstacle obstacle;
+
     bool quit = false;
     SDL_Event e;
+
+    const int FPS=60;
+    const int frameDelay=1000/FPS;
+    Uint32 frameStart;
+    int frametime;
+
     while( !quit&&!mouse.gameOver(mouse) ) {
+
+            frameStart=SDL_GetTicks();
         while( SDL_PollEvent( &e ) != 0 ) {
             if( e.type == SDL_QUIT ) quit = true;
         }
-      background.scoll(5);
-      graphics.render(background);
-      graphics.prepareScene(graphics.loadTexture(ANH_NHAN_VAT),&graphics.dinoRect);
+
 
       const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-      if (currentKeyStates[SDL_SCANCODE_W]||currentKeyStates[SDL_SCANCODE_UP]||currentKeyStates[SDL_SCANCODE_SPACE]) mouse.dc_len();
-      SDL_RenderClear(graphics.renderer);
-      if(graphics.loadTexture(ANH_NHAN_VAT)!=nullptr) SDL_DestroyTexture(graphics.loadTexture(ANH_NHAN_VAT));
-      if(graphics.loadTexture(BACKGROUND_IMG)!=nullptr) SDL_DestroyTexture(graphics.loadTexture(BACKGROUND_IMG));
-      mouse.render(mouse,graphics,background);
+      if (currentKeyStates[SDL_SCANCODE_W]||currentKeyStates[SDL_SCANCODE_UP]||currentKeyStates[SDL_SCANCODE_SPACE]){
+        mouse.dc_len();
+
+      }
+      background.scoll(distancebgr1);
+      updateObstacles(graphics);
       mouse.move();
+      spawnObstacle(graphics);
 
+      xlvc(mouse);
 
-      obstacle.spawnObstacle(graphics);
-      obstacle.updateObstacles(graphics);
-      obstacle.renderObstacles(graphics);
-      obstacle.xlvc(graphics);
-
-      graphics.presentScene();
       SDL_RenderClear(graphics.renderer);
-        SDL_Delay(25);
+      graphics.render(background);
+      mouse.render(mouse,graphics,background);
+      renderObstacles(graphics);
+      graphics.presentScene();
+
+      frametime=SDL_GetTicks()-frameStart;
+      if(frameDelay>frametime){
+        SDL_Delay(frameDelay-frametime);
+      }
     }
-    SDL_DestroyTexture(graphics.loadTexture(ANH_NHAN_VAT));
-    SDL_DestroyTexture(graphics.loadTexture(BACKGROUND_IMG));
+    clearObstacles();
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "Bạn thua rồi :)", graphics.window);
+    SDL_DestroyTexture(dinoTex);
+    SDL_DestroyTexture(backgroundtex);
     graphics.quit();
     return 0;
 }

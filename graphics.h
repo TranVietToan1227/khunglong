@@ -11,7 +11,8 @@
 struct scollingBackground{
   SDL_Texture* texture;
   int scollingOffset=0;
-  int width,height;
+  int width=PLAYER_WIDTH;
+  int height=PLAYER_HEIGHT;
 
   void setTexture(SDL_Texture* _texture){
       texture=_texture;
@@ -30,13 +31,13 @@ struct Graphics{
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* texture;
-    SDL_Rect dinoRect={50,450,70,70};
+    SDL_Rect dinoRect={PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT};
 
     SDL_Texture* loadTexture(const char* filename);
 
 void init();
 
-void prepareScene(SDL_Texture* background, SDL_Rect* dinoRect);
+void prepareScene(SDL_Texture* filename, SDL_Rect* dinoRect);
 
 void renderTexture(SDL_Texture* texture, int x, int y);
 
