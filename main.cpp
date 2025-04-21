@@ -24,7 +24,7 @@ bool showMenu(Graphics& graphics) {
             if (event.type == SDL_MOUSEBUTTONDOWN) {
                 int x = event.button.x;
                 int y = event.button.y;
-                // Vùng nút Start (giả sử nằm ở (300, 250, 200, 50))
+
                 if (x >= 250 && x <= 500 && y >= 300 && y <= 400) {
                     startGame = true;
                     running = false;
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     }
 
     SDL_Texture* backgroundtex=graphics.loadTexture(BACKGROUND_IMG);
-    SDL_Texture* dinoTex=graphics.loadTexture(ANH_NHAN_VAT);
+
 
     scollingBackground background;
     background.setTexture(backgroundtex);
@@ -64,6 +64,10 @@ int main(int argc, char *argv[])
     Sprite bird;
     SDL_Texture* birdTexture = graphics.loadTexture(BIRD_SPRITE_FILE);
     bird.init(birdTexture, BIRD_FRAMES, BIRD_CLIPS);
+
+    Dino dino;
+    SDL_Texture* dinoTexture=graphics.loadTexture(DINO_SPRITE_FILE);
+    dino.init(dinoTexture,DINO_FRAMES,DINO_CLIPS);
 
     bool quit = false;
     SDL_Event e;
@@ -91,15 +95,17 @@ int main(int argc, char *argv[])
       mouse.move();
       spawnObstacle(graphics);
 
-      xlvc(mouse);
+      xlvc(mouse,graphics);
 
       bird.tick();
+      dino.tick();
 
       SDL_RenderClear(graphics.renderer);
       graphics.render(background);
-      mouse.render(mouse,graphics,background);
+      mouse.render(mouse,graphics);
       renderObstacles(graphics);
       bird.renderSprite(150, 100 ,graphics);
+      dino.renderDino(PLAYER_X,PLAYER_Y,graphics);
       graphics.presentScene();
 
 
@@ -110,8 +116,6 @@ int main(int argc, char *argv[])
       }
     }
     clearObstacles();
-    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "Bạn thua rồi :)", graphics.window);
-    SDL_DestroyTexture(dinoTex);
     SDL_DestroyTexture(backgroundtex);
     graphics.quit();
     return 0;

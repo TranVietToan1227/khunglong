@@ -2,7 +2,6 @@
 
 std::vector<Obstacle> obstacles;
 
-
     Uint32 lastSpawnTime = 0;
     Uint32 spawnInterval = 2500;
 
@@ -50,13 +49,43 @@ std::vector<Obstacle> obstacles;
             }
 
 
-        void xlvc(dc_khunglong& va_cham){
+        void xlvc(dc_khunglong& va_cham,Graphics& graphics){
             for(const auto& obs: obstacles){
              if(inside(va_cham.x,va_cham.y,obs.rect)
                 || inside(va_cham.x+PLAYER_WIDTH,va_cham.y,obs.rect)
                 || inside(va_cham.x,va_cham.y+PLAYER_HEIGHT,obs.rect)
                 || inside(va_cham.x+PLAYER_WIDTH,va_cham.y+PLAYER_HEIGHT,obs.rect)){
-                  exit(0);
+                    SDL_Texture* gameoverTexture= graphics.loadTexture("gameover.png");
+                    if(!gameoverTexture){
+                        SDL_Log("Khong the load anh Gameover: ",SDL_GetError());
+                        exit(1);
+                    }
+                   SDL_Rect gameoverRect={0,0,800,600};
+                   SDL_RenderClear(graphics.renderer);
+                   SDL_RenderCopy(graphics.renderer,gameoverTexture,nullptr,&gameoverRect);
+                   SDL_RenderPresent(graphics.renderer);
+
+                   SDL_Delay(3000);
+                   SDL_Event e;
+                   if (e.type == SDL_QUIT){
+                    return;
+                   }
+
+                   clearObstacles();
+
+                   if (graphics.renderer) {
+                SDL_DestroyRenderer(graphics.renderer);
+                graphics.renderer = nullptr;
+            }
+
+                     if (graphics.window) {
+                SDL_DestroyWindow(graphics.window);
+                graphics.window = nullptr;
+            }
+                    IMG_Quit();
+                    SDL_Quit();
+
+                    exit(0);
                 }
              }
           }

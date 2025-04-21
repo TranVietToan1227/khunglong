@@ -40,5 +40,15 @@ const int BIRD_CLIPS[][4] = {
 };
 const int BIRD_FRAMES = sizeof(BIRD_CLIPS)/sizeof(int)/4;
 
+static const char* DINO_SPRITE_FILE="hoathinh_khunglong.jpg";
+const int DINO_CLIPS[][4] = {
+    {0, 0, 24, 24},
+    {24, 0, 24, 24},
+    {48, 0, 24, 24},
+    {72, 0, 24, 24},
+    {96, 0, 24, 24},
+    {120, 0, 24, 24}
+};
+const int DINO_FRAMES=sizeof(DINO_CLIPS)/sizeof(int)/4;
 
 #endif

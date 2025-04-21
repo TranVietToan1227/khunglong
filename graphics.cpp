@@ -1,5 +1,6 @@
 #include "graphics.h"
   std:: vector<SDL_Rect> clips;
+  std:: vector<SDL_Rect> hhkl;
 void Graphics::init(){
     SDL_INIT_EVERYTHING;
     window=SDL_CreateWindow(WINDOW_TITLE,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
@@ -55,4 +56,18 @@ void Graphics::presentScene(){
         currentFrame = (currentFrame + 1) % clips.size();
     }
 
+    void Dino::init(SDL_Texture* _texture,int frames,const int _clips[][4]){
+        texture=_texture;
+        SDL_Rect kl;
+        for(int i=0;i<frames;i++){
+            kl.x =_clips[i][0];
+            kl.y=_clips[i][1];
+            kl.w=_clips[i][2];
+            kl.h=_clips[i][3];
+             hhkl.push_back(kl);
+            }
+    }
+    void Dino::tick(){
+    currentFrame=(currentFrame+1)%hhkl.size();
+    }
 

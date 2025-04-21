@@ -69,7 +69,24 @@ struct Sprite {
         SDL_Rect renderQuad = {x, y, getCurrentClip()->w, getCurrentClip()->h};
         SDL_RenderCopy(graphics.renderer,texture, clip, &renderQuad);
     }
+};
 
+ extern std::vector<SDL_Rect> hhkl;
+struct Dino{
+    SDL_Texture* texture;
+    int currentFrame=0;
+
+    void init(SDL_Texture* _texture,int frames, const int _hhkl [][4]);
+    void tick();
+
+    const SDL_Rect* getCurrenthhkl() const{
+    return &(hhkl[currentFrame]);
+    }
+    void renderDino(int x,int y,Graphics graphics){
+    const SDL_Rect* kl=getCurrenthhkl();
+    SDL_Rect renderQuad = {x, y, getCurrenthhkl()->w, getCurrenthhkl()->h};
+        SDL_RenderCopy(graphics.renderer,texture, kl, &renderQuad);
+    }
 };
 
 

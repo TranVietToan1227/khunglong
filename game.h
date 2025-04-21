@@ -47,7 +47,7 @@ struct dc_khunglong{
        }
     }
 
-    void render(const dc_khunglong& mouse,  Graphics& graphics,scollingBackground& background) {
+    void render(const dc_khunglong& mouse,  Graphics& graphics) {
     SDL_Rect filled_rect;
     filled_rect.x = mouse.x;
     filled_rect.y = mouse.y;

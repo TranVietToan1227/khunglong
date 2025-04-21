@@ -23,7 +23,7 @@ struct Obstacle {
     void spawnObstacle(Graphics& graphics);//sinh vật cản mới
     void updateObstacles(Graphics& graphics);//cập nhật vị trí, xóa ảnh cũ
     void renderObstacles(Graphics& graphics);// vẽ vật cản
-    void xlvc(dc_khunglong& va_cham);
+    void xlvc(dc_khunglong& va_cham,Graphics& graphics);
     void clearObstacles();
 
 extern std::vector<Obstacle> obstacles;
