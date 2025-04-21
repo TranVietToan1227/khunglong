@@ -13,7 +13,7 @@ std::vector<Obstacle> obstacles;
             int type=rand()%3;
             const char* textures[]={VATCAN1,VATCAN2,VATCAN3};
             obs.texture=IMG_LoadTexture(graphics.renderer,textures[type]);
-            obs.rect={730,450,70,70};
+            obs.rect={700,420,100,100};
             obstacles.push_back(obs);
             lastSpawnTime=currentTime;
             spawnInterval=2500+rand()%1000;
@@ -65,11 +65,8 @@ std::vector<Obstacle> obstacles;
                    SDL_RenderCopy(graphics.renderer,gameoverTexture,nullptr,&gameoverRect);
                    SDL_RenderPresent(graphics.renderer);
 
-                   SDL_Delay(3000);
+                   SDL_Delay(2000);
                    SDL_Event e;
-                   if (e.type == SDL_QUIT){
-                    return;
-                   }
 
                    clearObstacles();
 

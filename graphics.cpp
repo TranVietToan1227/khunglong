@@ -1,6 +1,7 @@
 #include "graphics.h"
   std:: vector<SDL_Rect> clips;
-  std:: vector<SDL_Rect> hhkl;
+  std:: vector<SDL_Rect> clips2;
+
 void Graphics::init(){
     SDL_INIT_EVERYTHING;
     window=SDL_CreateWindow(WINDOW_TITLE,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
@@ -19,16 +20,28 @@ SDL_Texture* Graphics::loadTexture(const char* filename) {
 void Graphics::prepareScene(SDL_Texture* filename,SDL_Rect* dinoRect){
     SDL_RenderCopy(renderer,filename,nullptr,dinoRect);
 }
-void Graphics::renderTexture(SDL_Texture* texture,int x, int y){
+void Graphics::renderTexture(SDL_Texture *image, const double x, const double y, const double w, const double h, const double cx, const double cy, const double cw, const double ch) {
+    SDL_Rect PrsDest = {x,y,w,h};
+    SDL_Rect CutDest = {cx,cy,cw,ch};
+    SDL_RenderCopy(renderer, image, &CutDest, &PrsDest);
+
+}
+
+void Graphics::renderTexture(SDL_Texture *image, const double x, const double y) {
     SDL_Rect dest;
     dest.x=x;
     dest.y=y;
-    SDL_QueryTexture(texture,nullptr,nullptr,&dest.w,&dest.h);
+    SDL_QueryTexture(image,nullptr,nullptr,&dest.w,&dest.h);
     SDL_RenderCopy(renderer,texture,nullptr,&dest);
 }
+
+void Graphics::renderTexture(SDL_Texture *image, const double x, const double y, const double w, const double h) {
+    SDL_Rect Dest = {x,y,w,h};
+    SDL_RenderCopy(renderer,image,NULL,&Dest);
+}
 void Graphics::render(const scollingBackground& bgr){
-      renderTexture(bgr.texture,bgr.scollingOffset,0);
-      renderTexture(bgr.texture,bgr.scollingOffset-bgr.width,0);
+      renderTexture(bgr.texture,bgr.scollingOffset,0,bgr.width,bgr.height);
+      renderTexture(bgr.texture,bgr.scollingOffset-bgr.width,0,bgr.width,bgr.height);
 }
 void Graphics::presentScene(){
     SDL_RenderPresent(renderer);
@@ -56,18 +69,4 @@ void Graphics::presentScene(){
         currentFrame = (currentFrame + 1) % clips.size();
     }
 
-    void Dino::init(SDL_Texture* _texture,int frames,const int _clips[][4]){
-        texture=_texture;
-        SDL_Rect kl;
-        for(int i=0;i<frames;i++){
-            kl.x =_clips[i][0];
-            kl.y=_clips[i][1];
-            kl.w=_clips[i][2];
-            kl.h=_clips[i][3];
-             hhkl.push_back(kl);
-            }
-    }
-    void Dino::tick(){
-    currentFrame=(currentFrame+1)%hhkl.size();
-    }
 

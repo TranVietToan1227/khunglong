@@ -6,7 +6,7 @@
 bool showMenu(Graphics& graphics) {
     SDL_Texture* menuTexture = graphics.loadTexture("Start.png");
     if (menuTexture == nullptr) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Lỗi", "Không load được ảnh menu!", graphics.window);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Loi", "Không load được ảnh menu!", graphics.window);
         return false;
     }
 
@@ -65,9 +65,6 @@ int main(int argc, char *argv[])
     SDL_Texture* birdTexture = graphics.loadTexture(BIRD_SPRITE_FILE);
     bird.init(birdTexture, BIRD_FRAMES, BIRD_CLIPS);
 
-    Dino dino;
-    SDL_Texture* dinoTexture=graphics.loadTexture(DINO_SPRITE_FILE);
-    dino.init(dinoTexture,DINO_FRAMES,DINO_CLIPS);
 
     bool quit = false;
     SDL_Event e;
@@ -76,6 +73,7 @@ int main(int argc, char *argv[])
     const int frameDelay=1000/FPS;
     Uint32 frameStart;
     int frametime;
+    Uint32 lastBirdTick=0;
 
     while( !quit&&!mouse.gameOver(mouse) ) {
 
@@ -90,22 +88,23 @@ int main(int argc, char *argv[])
         mouse.dc_len();
 
       }
-      background.scoll(distancebgr1);
+      background.scoll(5);
       updateObstacles(graphics);
       mouse.move();
       spawnObstacle(graphics);
 
       xlvc(mouse,graphics);
 
+      if(frameStart-lastBirdTick>100){
       bird.tick();
-      dino.tick();
 
+      lastBirdTick=frameStart;
+      }
       SDL_RenderClear(graphics.renderer);
       graphics.render(background);
       mouse.render(mouse,graphics);
       renderObstacles(graphics);
       bird.renderSprite(150, 100 ,graphics);
-      dino.renderDino(PLAYER_X,PLAYER_Y,graphics);
       graphics.presentScene();
 
 
@@ -117,6 +116,7 @@ int main(int argc, char *argv[])
     }
     clearObstacles();
     SDL_DestroyTexture(backgroundtex);
+    SDL_DestroyTexture(birdTexture);
     graphics.quit();
     return 0;
 }

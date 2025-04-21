@@ -7,8 +7,8 @@
 
 static const int INITIAL_SPEED= -20;
 static const int trong_luc=1;
-static const int ground=450;
-static const int JUM_HEIGHT=100;
+static const int ground=420;
+static const int JUM_HEIGHT=150;
 static const int JUM_SPEED=8;
 
 struct dc_khunglong{

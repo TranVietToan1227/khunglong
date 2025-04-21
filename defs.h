@@ -8,11 +8,11 @@ const int  SCREEN_WIDTH =800;
 const int  SCREEN_HEIGHT =600;
 #define WINDOW_TITLE "Hello word!"
 #define BACKGROUND_IMG  "forest.jpg"
-#define ANH_NHAN_VAT "anhkhunglong.png"
+#define ANH_NHAN_VAT "nhanvat3.png"
 const int PLAYER_X=50;
-const int PLAYER_Y=450;
-const int PLAYER_WIDTH=70;
-const int PLAYER_HEIGHT=70;
+const int PLAYER_Y=420;
+const int PLAYER_WIDTH=80;
+const int PLAYER_HEIGHT=80;
 
 static const int distancebgr1=5;
 static const int distancebgr2=8;
@@ -40,15 +40,6 @@ const int BIRD_CLIPS[][4] = {
 };
 const int BIRD_FRAMES = sizeof(BIRD_CLIPS)/sizeof(int)/4;
 
-static const char* DINO_SPRITE_FILE="hoathinh_khunglong.jpg";
-const int DINO_CLIPS[][4] = {
-    {0, 0, 24, 24},
-    {24, 0, 24, 24},
-    {48, 0, 24, 24},
-    {72, 0, 24, 24},
-    {96, 0, 24, 24},
-    {120, 0, 24, 24}
-};
-const int DINO_FRAMES=sizeof(DINO_CLIPS)/sizeof(int)/4;
+
 
 #endif

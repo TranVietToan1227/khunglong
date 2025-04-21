@@ -8,9 +8,9 @@
 #include <vector>
 
 
-#define VATCAN1 "suongrong1.png"
-#define VATCAN2 "suongrong2.png"
-#define VATCAN3 "suongrong3.png"
+#define VATCAN1 "1suongrong.png"
+#define VATCAN2 "2suongrong.png"
+#define VATCAN3 "3suongrong.png"
 
 
 
