@@ -3,12 +3,53 @@
 #include "game.h"
 #include "obstacle.h"
 
+bool showMenu(Graphics& graphics) {
+    SDL_Texture* menuTexture = graphics.loadTexture("Start.png");
+    if (menuTexture == nullptr) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Lỗi", "Không load được ảnh menu!", graphics.window);
+        return false;
+    }
 
+    SDL_Event event;
+    bool running = true;
+    bool startGame = false;
+
+    SDL_Rect menuRect={0,0,800,600};
+
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = false;
+            }
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                int x = event.button.x;
+                int y = event.button.y;
+                // Vùng nút Start (giả sử nằm ở (300, 250, 200, 50))
+                if (x >= 250 && x <= 500 && y >= 300 && y <= 400) {
+                    startGame = true;
+                    running = false;
+                }
+            }
+        }
+
+        SDL_RenderClear(graphics.renderer);
+        SDL_RenderCopy(graphics.renderer, menuTexture, NULL, &menuRect);
+        SDL_RenderPresent(graphics.renderer);
+    }
+
+    SDL_DestroyTexture(menuTexture);
+    return startGame;
+}
 
 int main(int argc, char *argv[])
 {
     Graphics graphics;
     graphics.init();
+
+    if (!showMenu(graphics)) {
+        graphics.quit();
+        return 0;
+    }
 
     SDL_Texture* backgroundtex=graphics.loadTexture(BACKGROUND_IMG);
     SDL_Texture* dinoTex=graphics.loadTexture(ANH_NHAN_VAT);
@@ -54,11 +95,11 @@ int main(int argc, char *argv[])
 
       bird.tick();
 
-      bird.renderSprite(150, 100 ,graphics);
       SDL_RenderClear(graphics.renderer);
       graphics.render(background);
       mouse.render(mouse,graphics,background);
       renderObstacles(graphics);
+      bird.renderSprite(150, 100 ,graphics);
       graphics.presentScene();
 
 

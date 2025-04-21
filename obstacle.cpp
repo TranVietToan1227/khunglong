@@ -56,7 +56,7 @@ std::vector<Obstacle> obstacles;
                 || inside(va_cham.x+PLAYER_WIDTH,va_cham.y,obs.rect)
                 || inside(va_cham.x,va_cham.y+PLAYER_HEIGHT,obs.rect)
                 || inside(va_cham.x+PLAYER_WIDTH,va_cham.y+PLAYER_HEIGHT,obs.rect)){
-                exit(0);
+                  exit(0);
                 }
              }
           }

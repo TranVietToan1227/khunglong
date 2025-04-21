@@ -25,7 +25,7 @@
 1744731167 source:d:\khunglong\khunglong\graphics.cpp
 	"graphics.h"
 
-1744730327 d:\khunglong\khunglong\defs.h
+1745219442 d:\khunglong\khunglong\defs.h
 
 1744731765 d:\khunglong\khunglong\graphics.h
 	<algorithm>
@@ -34,7 +34,7 @@
 	<SDL_image.h>
 	"defs.h"
 
-1744732202 source:d:\khunglong\khunglong\main.cpp
+1745221028 source:d:\khunglong\khunglong\main.cpp
 	"graphics.h"
 	"defs.h"
 	"game.h"

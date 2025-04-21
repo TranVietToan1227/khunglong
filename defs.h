@@ -19,7 +19,7 @@ static const int distancebgr2=8;
 static const int distanceobs1=4;
 static const int distanceobs2=6;
 
-static const char*  BIRD_SPRITE_FILE = "83127-sprite-area-line-animated-bird-film.png";
+static const char*  BIRD_SPRITE_FILE = "chim_bay.png";
 const int BIRD_CLIPS[][4] = {
     {0, 0, 182, 168},
     {181, 0, 182, 168},
