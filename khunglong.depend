@@ -22,25 +22,28 @@
 
 1743428279 d:\khunglong\defs.h
 
-1745245903 source:d:\khunglong\khunglong\graphics.cpp
+1745288741 source:d:\khunglong\khunglong\graphics.cpp
 	"graphics.h"
 
 1745250490 d:\khunglong\khunglong\defs.h
 
-1745245903 d:\khunglong\khunglong\graphics.h
+1745288741 d:\khunglong\khunglong\graphics.h
 	<algorithm>
 	<vector>
+	<string>
 	<SDL.h>
 	<SDL_image.h>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
 	"defs.h"
 
-1745250444 source:d:\khunglong\khunglong\main.cpp
+1745293947 source:d:\khunglong\khunglong\main.cpp
 	"graphics.h"
 	"defs.h"
 	"game.h"
 	"obstacle.h"
 
-1745250490 d:\khunglong\khunglong\game.h
+1745290397 d:\khunglong\khunglong\game.h
 	"defs.h"
 	"graphics.h"
 
@@ -443,12 +446,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1745249455 d:\khunglong\khunglong\obstacle.h
+1745291312 d:\khunglong\khunglong\obstacle.h
 	"defs.h"
 	"game.h"
 	"graphics.h"
 	<vector>
 
-1745250296 source:d:\khunglong\khunglong\obstacle.cpp
+1745294349 source:d:\khunglong\khunglong\obstacle.cpp
 	"obstacle.h"
 

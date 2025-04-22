@@ -49,42 +49,66 @@ std::vector<Obstacle> obstacles;
             }
 
 
-        void xlvc(dc_khunglong& va_cham,Graphics& graphics){
+        bool xlvc(dc_khunglong& va_cham,Graphics& graphics, Mix_Chunk* collisionSound,int score, int& highScore){
             for(const auto& obs: obstacles){
              if(inside(va_cham.x,va_cham.y,obs.rect)
                 || inside(va_cham.x+PLAYER_WIDTH,va_cham.y,obs.rect)
                 || inside(va_cham.x,va_cham.y+PLAYER_HEIGHT,obs.rect)
                 || inside(va_cham.x+PLAYER_WIDTH,va_cham.y+PLAYER_HEIGHT,obs.rect)){
+
+                    Mix_PlayChannel(-1, collisionSound, 0);
+
                     SDL_Texture* gameoverTexture= graphics.loadTexture("gameover.png");
                     if(!gameoverTexture){
                         SDL_Log("Khong the load anh Gameover: ",SDL_GetError());
                         exit(1);
                     }
                    SDL_Rect gameoverRect={0,0,800,600};
+                   if (score > highScore) {
+                highScore = score;
+            }
                    SDL_RenderClear(graphics.renderer);
                    SDL_RenderCopy(graphics.renderer,gameoverTexture,nullptr,&gameoverRect);
-                   SDL_RenderPresent(graphics.renderer);
+                      // Vẽ text Score và HighScore
+            graphics.renderText("Your Score: " + std::to_string(score), 280, 130, {255, 0, 0});
+            graphics.renderText("High Score: " + std::to_string(highScore), 280, 180, {255, 0, 0});
+            graphics.renderText("Click on the gameover area to play again", 170, 500, {255, 255, 255});
 
-                   SDL_Delay(2000);
-                   SDL_Event e;
+                   SDL_RenderPresent(graphics.renderer);
 
                    clearObstacles();
 
-                   if (graphics.renderer) {
-                SDL_DestroyRenderer(graphics.renderer);
-                graphics.renderer = nullptr;
+                   SDL_Event e;
+            bool waitQuit = true;
+            bool restartGame = false;
+            while (waitQuit) {
+                while (SDL_PollEvent(&e)) {
+                    if (e.type == SDL_QUIT) {
+                        SDL_DestroyTexture(gameoverTexture);
+                        SDL_Quit();
+                        exit(0);
+                    }
+                    if (e.type == SDL_MOUSEBUTTONDOWN) {
+                        int x = e.button.x;
+                        int y = e.button.y;
+
+                        // Kiểm tra vị trí nút Restart
+                        if (x >= 250 && x <= 500 && y >= 300 && y <= 400) {
+                            restartGame = true;
+                            waitQuit = false;
+                        }
+                    }
+                }
+                SDL_Delay(10);
             }
 
-                     if (graphics.window) {
-                SDL_DestroyWindow(graphics.window);
-                graphics.window = nullptr;
-            }
-                    IMG_Quit();
-                    SDL_Quit();
+            // Giải phóng
+            SDL_DestroyTexture(gameoverTexture);
 
-                    exit(0);
+                   return restartGame;
                 }
              }
+             return false;
           }
 
     void clearObstacles() {

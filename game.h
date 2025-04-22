@@ -60,6 +60,11 @@ struct dc_khunglong{
        return mouse.x<=0||mouse.x>=SCREEN_WIDTH
               || mouse.y<=0||mouse.y>=SCREEN_HEIGHT;
     }
+    void reset() {
+    x = 50;
+    y = 420;
+    isJumping = false;
+}
 
 };
 #endif

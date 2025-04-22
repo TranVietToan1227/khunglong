@@ -3,9 +3,12 @@
 
 #include <algorithm>
 #include <vector>
+#include<string>
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
 
 #include "defs.h"
 
@@ -36,6 +39,7 @@ struct Graphics{
 
     SDL_Texture* loadTexture(const char* filename);
 
+
 void init();
 
 void prepareScene(SDL_Texture* filename, SDL_Rect* dinoRect);
@@ -47,6 +51,18 @@ void prepareScene(SDL_Texture* filename, SDL_Rect* dinoRect);
     void renderTexture(SDL_Texture *image, const double x, const double y);
 
 void render(const scollingBackground& bgr) ;
+
+  Mix_Music *loadMusic(const char* path);
+
+    void play(Mix_Music *gMusic);
+
+    Mix_Chunk* loadSound(const char* path);
+    void play(Mix_Chunk* gChunk) ;
+
+ TTF_Font* font = nullptr;
+ bool loadFont(const std::string& fontPath, int fontSize);
+ void renderText(const std::string& text, int x, int y, SDL_Color color);
+
 
 
 void presentScene();
@@ -75,6 +91,8 @@ struct Sprite {
         SDL_RenderCopy(graphics.renderer,texture, clip, &renderQuad);
     }
 };
+
+
 
 
 
